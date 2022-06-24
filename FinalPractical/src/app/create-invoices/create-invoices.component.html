@@ -1,0 +1,104 @@
+<form nz-form [formGroup]="validateForm">
+    <div nz-row>
+        <div nz-col nzSpan="6">
+            <nz-form-item>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="emailError">
+                    <label>E-mail</label><br>
+                    <input nz-input formControlName="email" placeHolder="Enter email" />
+                    <ng-template #emailError let-control>
+                        <ng-container *ngIf="control.hasError('required')">Please enter your email</ng-container>
+                        <ng-container *ngIf="control.hasError('email')">Please enter valid email</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzSpan="6">
+            <nz-form-item>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter invoice date">
+                    <label>Date</label><br>
+                    <nz-date-picker [nzFormat]="'dd MMMM yyyy'" formControlName="invoiceDate"
+                        (ngModelChange)="validateDueDate($event)"></nz-date-picker>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzSpan="6">
+            <nz-form-item>
+                <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="dueDateError">
+                    <label>Due Date</label><br>
+                    <nz-date-picker [nzFormat]="'dd MMMM yyyy'" formControlName="dueDate"></nz-date-picker>
+                    <ng-template #dueDateError let-control>
+                        <ng-container *ngIf="control.hasError('dueDate')">Date Closed cannot be smaller or equal
+                            to date Opened</ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div nz-col nzSpan="6">
+            <nz-form-item>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                    <label>Reference</label><br>
+                    <input nz-input formControlName="reference" placeHolder="Enter reference" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <div nz-row>
+        <div nz-col nzSpan="24">
+            <nz-form-item>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select currency">
+                    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select currency" formControlName="currency">
+                        <nz-option nzLabel="GBP" nzValue="GBP"></nz-option>
+                        <nz-option nzLabel="EUR" nzValue="EUR"></nz-option>
+                        <nz-option nzLabel="INR" nzValue="INR"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+    <nz-table #editRowTable nzBordered [nzData]="listOfItems">
+        <thead>
+            <tr>
+                <th nzWidth="30%">Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Disc %</th>
+                <th>Account</th>
+                <th>Tax Rate</th>
+                <th colSpan="2">Amount GBP</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr formArrayName="items" *ngFor="let item of itemsFormArray.controls; let i = index;">
+                <ng-container [formGroupName]="i">
+                    <td><input type="text" nz-input formControlName="itemDesc" /></td>
+                    <td><input type="number" nz-input formControlName="itemQty" /></td>
+                    <td><input type="number" nz-input formControlName="unitPrice" /></td>
+                    <td><input type="number" nz-input formControlName="disc" /></td>
+                    <td>
+                        <nz-select nzShowSearch nzAllowClear formControlName="account">
+                            <nz-option nzLabel="GBP" nzValue="GBP"></nz-option>
+                            <nz-option nzLabel="EUR" nzValue="EUR"></nz-option>
+                            <nz-option nzLabel="INR" nzValue="INR"></nz-option>
+                        </nz-select>
+                    </td>
+                    <td>
+                        <nz-select nzShowSearch nzAllowClear formControlName="taxRate">
+                            <nz-option nzLabel="GBP" nzValue="GBP"></nz-option>
+                            <nz-option nzLabel="EUR" nzValue="EUR"></nz-option>
+                            <nz-option nzLabel="INR" nzValue="INR"></nz-option>
+                        </nz-select>
+                    </td>
+                    <td>{{getAmount()}}</td>
+                    <td>
+                        <a nz-popconfirm nzPopconfirmTitle="Sure to delete?"
+                            (nzOnConfirm)="deleteRow(i,item)">Delete</a>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </nz-table>
+</form>
+<button nz-button (click)="addRow()" nzType="primary">Add</button><br>
+<button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" (click)="submitForm()">Save</button>
+<button nz-button class="login-form-button login-form-margin" [nzType]="'default'"
+    (click)="validateForm.reset()">Cancel</button>
