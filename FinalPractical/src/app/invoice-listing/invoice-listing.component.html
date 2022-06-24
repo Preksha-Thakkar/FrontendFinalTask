@@ -1,1 +1,43 @@
-<p>invoice-listing works!</p>
+<div class="pt-2">
+<button nz-button nzType="default" routerLink="/create-invoices">New Invoice</button><br>
+<nz-tabset nzType="card" class="pt-2">
+    <nz-tab *ngFor="let tab of tabs" [nzTitle]="tab.name + '(' + tab.data.length + ')'">
+        <ng-container>
+            <button nz-button nzType="default" class="mr-1">Awaiting Payment</button>
+            <button nz-button nzType="default" class="mr-1">Delete</button>
+            <button nz-button nzType="default" class="mr-1">Print</button>
+            <button nz-button nzType="default" class="mr-1">Email</button>
+            <span class="float-right">
+                <span>{{tab.data.length + ' | ' + tab.data[0].due}}</span>
+                <span><button nz-button nzType="default">Search</button></span>
+            </span>
+        </ng-container>
+        <nz-table #basicTable [nzData]="tab.data" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)" class="pt-2">
+            <thead>
+                <tr> 
+                    <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"
+                        (nzCheckedChange)="onAllChecked($event)"></th>
+                    <th>Number</th>
+                    <th>Ref</th>
+                    <th>To</th>
+                    <th>Date</th>
+                    <th>Due Date</th>
+                    <th>Due</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of tab.data">
+                    <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)">
+                    </td>
+                    <td>{{data.number}}</td>
+                    <td>{{data.ref}}</td>
+                    <td>{{data.to}}</td>
+                    <td>{{data.date}}</td>
+                    <td>{{data.dueDate}}</td>
+                    <td>{{data.due}}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </nz-tab>
+</nz-tabset>
+</div>

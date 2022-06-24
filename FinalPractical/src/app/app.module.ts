@@ -10,6 +10,9 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,7 +50,10 @@ registerLocaleData(en);
     NzGridModule,
     NzDatePickerModule,
     NzSelectModule,
-    NzTableModule
+    NzTableModule,
+    NzMessageModule,
+    NzTabsModule,
+    NzIconModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

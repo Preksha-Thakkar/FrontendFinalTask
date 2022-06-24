@@ -5,3 +5,30 @@
 .ant-layout-content{
     background: aliceblue;
 }
+.cl-red{
+    color: red;
+}
+/* input{
+    width: 130% !important;
+} */
+/* .ant-picker{
+    width: 142% !important;
+} */
+.ant-select.ant-select-in-form-item{
+    width: 32% !important;
+}
+.mr-1{
+    margin-right: 10px;
+}
+nz-select{
+    width: 100%;
+}
+.pt-2{
+    padding-top: 20px;
+}
+.pb-2{
+    padding-bottom: 20px;
+}
+.float-right{
+    float:right;
+}
