@@ -28,7 +28,7 @@
                     <nz-date-picker [nzFormat]="'dd MMMM yyyy'" formControlName="dueDate"></nz-date-picker>
                     <ng-template #dueDateError let-control>
                         <ng-container *ngIf="control.hasError('dueDate')">Date Closed cannot be smaller or equal
-                            to date Opened</ng-container>
+                            to invoice date</ng-container>
                     </ng-template>
                 </nz-form-control>
             </nz-form-item>
@@ -66,10 +66,10 @@
     <nz-table #editRowTable nzBordered [nzTemplateMode]="true">
         <thead>
             <tr>
-                <th nzWidth="30%">Description</th>
-                <th>Qty</th>
-                <th>Unit Price</th>
-                <th>Disc %</th>
+                <th nzWidth="20%">Description</th>
+                <th nzWidth="15%">Qty</th>
+                <th nzWidth="15%">Unit Price</th>
+                <th nzWidth="10%">Disc %</th>
                 <th>Account</th>
                 <th>Tax Rate</th>
                 <th colSpan="2">Amount GBP</th>
@@ -79,93 +79,86 @@
             <tr formArrayName="items" *ngFor="let item of itemsFormArray.controls; let i = index;">
                 <ng-container [formGroupName]="i">
                     <td>
-                        <!-- <nz-form-item>
-                            <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="itemDescError"> -->
                         <input type="text" nz-input formControlName="itemDesc" />
-                        <!-- <ng-template #itemDescError let-control>
-                            <ng-container *ngIf="control.hasError('required')">Date Closed cannot be smaller or equal
-                                to date Opened</ng-container>
-                        </ng-template>
-                        </nz-form-control>
-                        </nz-form-item> -->
-            <tr>
-                <td>
-                    <p class="cl-red" *ngIf="item['controls'].itemDesc?.errors?.required">Please enter description
-                    </p>
-                </td>
-            </tr>
-            </td>
-            <td>
-                <input type="number" nz-input formControlName="itemQty" />
-                <tr>
+                        <p class="cl-red" *ngIf="item['controls'].itemDesc?.errors?.required">Please enter description
+                        </p>
+                    </td>
                     <td>
+                        <input type="number" nz-input formControlName="itemQty" />
                         <p class="cl-red" *ngIf="item['controls'].itemQty?.errors?.required">Please enter quantity</p>
+
                     </td>
-                </tr>
-            </td>
-            <td>
-                <input type="number" nz-input formControlName="unitPrice" />
-                <tr>
                     <td>
-                        <p class="cl-red" *ngIf="item['controls'].unitPrice?.errors?.required">Please enter price per unit</p>
+                        <input type="number" nz-input formControlName="unitPrice" />
+                        <p class="cl-red" *ngIf="item['controls'].unitPrice?.errors?.required">Please enter price</p>
                     </td>
-                </tr>
-            </td>
-            <td><input type="number" nz-input formControlName="disc" /></td>
-            <td>
-                <nz-select nzShowSearch nzAllowClear formControlName="account">
-                    <nz-option nzLabel="GBP" nzValue="GBP"></nz-option>
-                    <nz-option nzLabel="EUR" nzValue="EUR"></nz-option>
-                    <nz-option nzLabel="INR" nzValue="INR"></nz-option>
-                </nz-select>
-                <tr>
-                    <td>n
-                        <p class="cl-red" *ngIf="item['controls'].account?.errors?.required">Please select account</p>
-                    </td>
-                </tr>
-            </td>
-            <td>
-                <nz-select nzShowSearch nzAllowClear formControlName="taxRate">
-                    <nz-option nzLabel="0" [nzValue]="0"></nz-option>
-                    <nz-option nzLabel="10" [nzValue]="10"></nz-option>
-                    <nz-option nzLabel="15" [nzValue]="15"></nz-option>
-                    <nz-option nzLabel="20" [nzValue]="20"></nz-option>
-                </nz-select>
-                <tr>
+                    <td><input type="number" nz-input formControlName="disc" /></td>
                     <td>
-                        <p class="cl-red" *ngIf="item['controls'].taxRate?.errors?.required">Please select tax rate</p>
-                    </td>
-                </tr>
-            </td>
-            <td>
-                {{((item['controls'].itemQty.value*item['controls'].unitPrice.value)-(item['controls'].itemQty.value*item['controls'].unitPrice.value)/(item['controls'].disc.value))
-                || 0}}
-            </td>
-            <td>
-                <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(i,item)"><i nz-icon nzType="close" nzTheme="outline"></i></a>
-            </td>
-            </ng-container>
+                        <nz-select nzShowSearch nzAllowClear formControlName="account">
+                            <nz-option nzLabel="GBP" nzValue="GBP"></nz-option>
+                            <nz-option nzLabel="EUR" nzValue="EUR"></nz-option>
+                            <nz-option nzLabel="INR" nzValue="INR"></nz-option>
+                        </nz-select>
+            <tr>
+                <p class="cl-red" *ngIf="item['controls'].account?.errors?.required">Please select account</p>
+
+                </td>
+                <td>
+                    <nz-select nzShowSearch nzAllowClear formControlName="taxRate">
+                        <nz-option nzLabel="0" [nzValue]="0"></nz-option>
+                        <nz-option nzLabel="10" [nzValue]="10"></nz-option>
+                        <nz-option nzLabel="15" [nzValue]="15"></nz-option>
+                        <nz-option nzLabel="20" [nzValue]="20"></nz-option>
+                    </nz-select>
+                    <p class="cl-red" *ngIf="item['controls'].taxRate?.errors?.required">Please select tax rate</p>
+
+                </td>
+                <td>
+                    {{((item['controls'].itemQty.value*item['controls'].unitPrice.value)-(item['controls'].itemQty.value*item['controls'].unitPrice.value)/(item['controls'].disc.value))
+                    || 0}}
+                </td>
+                <td>
+                    <a nz-popconfirm nzPopconfirmTitle="Sure to delete?" (nzOnConfirm)="deleteRow(i,item)"><i nz-icon
+                            nzType="close" nzTheme="outline"></i></a>
+                </td>
+                </ng-container>
             </tr>
         </tbody>
     </nz-table>
 </form>
 <div nz-row>
     <div nz-col nzSpan="20">
-        <button nz-button (click)="addRow()" nzType="default"><i nz-icon nzType="plus" nzTheme="outline"></i>Add a new line</button>
+        <button nz-button (click)="addRow()" nzType="default"><i nz-icon nzType="plus" nzTheme="outline"></i>Add a new
+            line</button>
     </div>
     <div nz-col nzSpan="4">
-        Subtotal {{getSubtotal()}} <br>
-        hey<div *ngFor="let vat of uniqueTaxToShow">{{vat['controls'].taxRate.value}}</div> {{getVAT()}} <br>
-        TOTAL {{getTotal()}} <br>
+        <table [width]="'100%'">
+            <tr>
+                <td [width]="'50%'" class="right">Subtotal</td>
+                <td [width]="'50%'" class="right">{{getSubtotal()}}</td>
+            </tr>
+            <tr>
+                <td [width]="'50%'" class="right">VAT</td>
+                <td [width]="'50%'" class="right">{{getVAT()}}</td>
+            </tr>
+            <tr>
+                <td [width]="'50%'" class="right"><h2>TOTAL</h2></td>
+                <td [width]="'50%'" class="right"><h2>{{getTotal()}}</h2></td>
+            </tr>
+        </table>
+        <!-- <h4><span>Subtotal </span><span class="float-right">{{getSubtotal()}} </span></h4><br>
+        <h4>VAT<div class="float-right" *ngFor="let vat of uniqueTaxToShow">{{vat['controls'].taxRate.value}}</div>
+            {{getVAT()}} </h4><br>
+        <h2>TOTAL <span class="float-right">{{getTotal()}} </span></h2><br> -->
     </div>
 </div>
-<div nz-row class="pb-2">
+<div nz-row class="pb-2" class="lastRowInvoice">
     <div nz-col nzSpan="22">
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'"
             (click)="submitForm()">Save</button>
     </div>
-    <div nz-col nzSpan="2">
-        <button class="float-right" nz-button class="login-form-button login-form-margin" [nzType]="'default'"
+    <div nz-col nzSpan="2" class="float-right">
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'default'"
             (click)="validateForm.reset()">Cancel</button>
     </div>
 </div>

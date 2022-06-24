@@ -3,7 +3,7 @@
     background: white;
 }
 .ant-layout-content{
-    background: aliceblue;
+    background: #faf7f7;
 }
 .cl-red{
     color: red;
@@ -31,4 +31,15 @@ nz-select{
 }
 .float-right{
     float:right;
+}
+h2{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.right{
+    text-align: right;
+}
+.lastRowInvoice{
+    background: white;
+    padding:20px;
 }

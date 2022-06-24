@@ -1,8 +1,8 @@
 <nz-layout>
   <nz-header>
           <ul nz-menu nzMode="horizontal" class="header-menu">
-              <li nz-menu-item nzSelected routerLink="/create-invoices">Create Invoices</li>
-              <li nz-menu-item  routerLink="/invoice-listing">Invoice Listing</li>
+              <li nz-menu-item [nzSelected]="currentURL.includes('create-invoices')" routerLink="/create-invoices">Create Invoices</li>
+              <li nz-menu-item [nzSelected]="currentURL.includes('invoice-listing')" routerLink="/invoice-listing">Invoice Listing</li>
           </ul>
   </nz-header>
           <nz-content>

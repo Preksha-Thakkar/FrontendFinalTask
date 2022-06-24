@@ -127,6 +127,7 @@ export class CreateInvoicesComponent implements OnInit {
     return subtotal || 0
   }
   getVAT(){
+    return 0
     // console.log("this.uniqueTaxToShow")
     // console.log(this.itemsFormArray.controls)
     // var temp :any [] = []
@@ -143,7 +144,7 @@ export class CreateInvoicesComponent implements OnInit {
     // return subtotal || 0
   }
   getTotal(){
-
+    return 0
   }
 
 }
