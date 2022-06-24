@@ -54,6 +54,7 @@ export class InvoiceListingComponent implements OnInit {
       }
     ]
   }
+  //for check checkboxes, multi select
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
       this.setOfCheckedId.add(id);

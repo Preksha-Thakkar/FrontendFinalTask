@@ -62,28 +62,6 @@ export class CreateInvoicesComponent implements OnInit {
       });
 
     }
-
-    // console.log(this.itemsFormArray.controls)
-    // this.itemsFormArray.controls.forEach((element:any) => {
-      // this.itemsFormArray.controls.forEach((control:any) => {
-      //   control.markAsDirty()
-      //   control.updateValueAndValidity({ onlySelf: true });
-      //   console.log(control)
-        // if (control.invalid) {
-        //   console.log(control)
-        //   control.markAsDirty();
-        //   control.updateValueAndValidity({ onlySelf: true });
-        // }
-      // });
-    // });
-    // this.itemsFormArray.controls.markAllAsTouched();
-    // Object.values(this.itemsFormArray.controls).forEach((control:any) => {
-
-    //   if (control.invalid) {
-    //     control.markAsDirty();
-    //     control.updateValueAndValidity({ onlySelf: true });
-    //   }
-    // });
   }
 
   //create new field
@@ -116,9 +94,7 @@ export class CreateInvoicesComponent implements OnInit {
     return this.validateForm.get('items') as FormArray;
   }
 
-  getAmount() {
-
-  }
+  //get subtotal of all items
   getSubtotal(){
     var subtotal = 0;
     this.itemsFormArray.controls.forEach((element:any) => {
@@ -126,23 +102,11 @@ export class CreateInvoicesComponent implements OnInit {
     });
     return subtotal || 0
   }
+  //get total VAT
   getVAT(){
     return 0
-    // console.log("this.uniqueTaxToShow")
-    // console.log(this.itemsFormArray.controls)
-    // var temp :any [] = []
-    // temp = this.itemsFormArray.controls;
-    // temp.forEach((element:any) => {
-    //   if(this.taxes.includes(element['controls'].taxRate.value)){
-
-    //     this.uniqueTaxToShow.push(element)
-    //   }
-    //   // subtotal += (element['controls'].itemQty.value * element['controls'].unitPrice.value)-((element['controls'].itemQty.value*element['controls'].unitPrice.value)/(element['controls'].disc.value))+element['controls'].taxRate.value
-    // });
-    // console.log(this.uniqueTaxToShow)
-    // // this.uniqueTaxToShow = [];
-    // return subtotal || 0
   }
+  //get total
   getTotal(){
     return 0
   }
