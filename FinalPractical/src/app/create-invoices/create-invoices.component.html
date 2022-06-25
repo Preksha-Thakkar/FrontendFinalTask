@@ -27,8 +27,7 @@
                     <label>Due Date</label><br>
                     <nz-date-picker [nzFormat]="'dd MMMM yyyy'" formControlName="dueDate"></nz-date-picker>
                     <ng-template #dueDateError let-control>
-                        <ng-container *ngIf="control.hasError('dueDate')">Date Closed cannot be smaller or equal
-                            to invoice date</ng-container>
+                        <ng-container *ngIf="control.hasError('confirm')">Due Date cannot be smaller than invoice date</ng-container>
                     </ng-template>
                 </nz-form-control>
             </nz-form-item>

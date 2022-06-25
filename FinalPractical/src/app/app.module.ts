@@ -13,6 +13,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -53,7 +54,8 @@ registerLocaleData(en);
     NzTableModule,
     NzMessageModule,
     NzTabsModule,
-    NzIconModule
+    NzIconModule,
+    NzPopconfirmModule
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

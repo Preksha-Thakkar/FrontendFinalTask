@@ -78,14 +78,17 @@ export class CreateInvoicesComponent implements OnInit {
   }
   //add new item
   addRow(): void {
+    if(this.itemsFormArray.controls?.length < 10){
     this.items = this.validateForm.get('items') as FormArray;
     this.items.push(this.createItem());
+    }
   }
 
   //delete row of item
   deleteRow(id: any, item: any): void {
-    if (this.itemsFormArray.controls > 1) {
-      this.listOfItems = this.listOfItems.filter(d => d.id !== id);
+    if(this.items)
+    if (this.items?.length > 1) {
+      this.items?.removeAt(id);
     }
   }
 
@@ -108,7 +111,7 @@ export class CreateInvoicesComponent implements OnInit {
   }
   //get total
   getTotal(){
-    return 0
+    return this.getSubtotal()
   }
 
 }
